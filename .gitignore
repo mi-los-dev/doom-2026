@@ -3,3 +3,5 @@ Logs
 UserSettings
 *.csproj
 *.sln
+.vscode
+Temp

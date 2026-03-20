@@ -6,12 +6,11 @@ namespace Game.Gameplay
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [Inject] private EnemyController.Factory _enemyFactory;
-        [Inject] private EnemyConfig _enemyConfig;
+        [Inject] private EnemyMovement.Factory _enemyFactory;
 
-        public EnemyController SpawnEnemy(Vector3 position)
+        public EnemyMovement SpawnEnemy(Vector3 position)
         {
-            EnemyController enemy = _enemyFactory.Create();
+            var enemy = _enemyFactory.Create();
             enemy.transform.position = position;
             return enemy;
         }

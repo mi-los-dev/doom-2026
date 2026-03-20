@@ -17,9 +17,8 @@ namespace Game.Infrastructure
         public IObservable<Vector2> MoveInput()
         {
             return Observable.EveryUpdate()
-                .Select(_ => new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")))
-                .Where(v => v != Vector2.zero)
-                .Select(v => Vector2.ClampMagnitude(v, 1f));
+                .Select(_ => Vector2.ClampMagnitude(
+                    new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")), 1f));
         }
 
         public IObservable<Unit> ShootInput()
@@ -29,12 +28,18 @@ namespace Game.Infrastructure
                 .Select(_ => Unit.Default);
         }
 
+        public IObservable<Unit> JumpInput()
+        {
+            return Observable.EveryUpdate()
+                .Where(_ => Input.GetButtonDown("Jump"))
+                .Select(_ => Unit.Default);
+        }
+
         public IObservable<Unit> UpgradeUIInput()
         {
             return Observable.EveryUpdate()
                 .Where(_ => Input.GetKeyDown(KeyCode.Tab))
-                .Select(_ => Unit.Default)
-                .First();
+                .Select(_ => Unit.Default);
         }
     }
 }

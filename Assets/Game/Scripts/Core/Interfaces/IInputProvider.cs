@@ -9,6 +9,7 @@ namespace Game.Core
         IObservable<Vector2> MoveInput();
         IObservable<Vector2> LookInput();
         IObservable<Unit> ShootInput();
+        IObservable<Unit> JumpInput();
         IObservable<Unit> UpgradeUIInput();
     }
 }

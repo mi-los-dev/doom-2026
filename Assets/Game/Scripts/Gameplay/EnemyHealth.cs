@@ -10,16 +10,30 @@ namespace Game.Gameplay
     {
         public ReactiveProperty<float> Hp;
 
+        [SerializeField] private ParticleSystem _takeDamageEffect;
+
         [Inject] EnemyRewardService _enemyRewardService;
         [Inject] EnemyConfig _enemyConfig;
 
-        public void TakeDamage(float amount)
+        private void Awake()
+        {
+            Hp.Value = Random.Range(_enemyConfig.MinHp, _enemyConfig.MaxHp + 1);
+        }
+
+        public void TakeDamage(float amount, RaycastHit hit)
         {
             Hp.Value -= amount;
             if (Hp.Value <= 0)
             {
                 _enemyRewardService.OnEnemyKilled();
                 Destroy(gameObject);
+            }
+            else
+            {
+                _takeDamageEffect.transform.position = hit.point;
+                _takeDamageEffect.transform.LookAt(hit.point + hit.normal);
+                _takeDamageEffect.Stop();
+                _takeDamageEffect.Play();
             }
         }
     }

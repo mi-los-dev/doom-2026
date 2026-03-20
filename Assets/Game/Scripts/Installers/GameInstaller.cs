@@ -23,6 +23,17 @@ namespace Game.Installers
             Container.Bind<IConfigProvider>()
                 .FromMethod(_ => new LocalSOConfigProvider(_configs))
                 .AsSingle();
+
+            Container.Bind<PlayerConfig>()
+                .FromMethod(ctx => ctx.Container.Resolve<IConfigProvider>().Get<PlayerConfig>())
+                .AsSingle();
+            Container.Bind<EnemyConfig>()
+                .FromMethod(ctx => ctx.Container.Resolve<IConfigProvider>().Get<EnemyConfig>())
+                .AsSingle();
+            Container.Bind<StatsTableConfig>()
+                .FromMethod(ctx => ctx.Container.Resolve<IConfigProvider>().Get<StatsTableConfig>())
+                .AsSingle();
+
             Container.Bind<IInputProvider>().To<PCInputProvider>().AsSingle();
             Container.Bind<ISaveService>().To<JsonSaveService>().AsSingle();
             Container.Bind<ILocalizationService>().To<StubLocalizationService>().AsSingle();

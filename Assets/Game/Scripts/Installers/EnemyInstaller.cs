@@ -10,7 +10,7 @@ namespace Game.Installers
 
         public override void InstallBindings()
         {
-            Container.BindFactory<EnemyController, EnemyController.Factory>()
+            Container.BindFactory<EnemyMovement, EnemyMovement.Factory>()
                 .FromComponentInNewPrefab(_enemyPrefab).AsSingle();
         }
     }

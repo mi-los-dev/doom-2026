@@ -27,7 +27,7 @@ namespace Game.UI
 
             session.GetDisplayLevel(_statDefinition.Id)
                 .CombineLatest(session.RemainingPoints,
-                    (level, points) => points > 0 && level < _statDefinition.MaxValue)
+                    (level, points) => points > 0 && level < _statDefinition.MaxUpgradeLevel)
                 .Subscribe(canUpgrade => _plusButton.interactable = canUpgrade)
                 .AddTo(this);
 
@@ -38,12 +38,11 @@ namespace Game.UI
 
         private void RefreshView(int level)
         {
-            var statName  = _localizationService.Get(_statDefinition.LocalizationKey);
-            var value     = _statDefinition.StartValue + _statDefinition.ValuePerPoint * level;
-            var maxValue  = _statDefinition.StartValue + _statDefinition.ValuePerPoint * _statDefinition.MaxValue;
+            var statName = _localizationService.Get(_statDefinition.LocalizationKey);
+            var value = _statDefinition.StartValue + _statDefinition.ValuePerPoint * level;
 
-            _statNameText.text = $"{statName}: {value:F0} / {maxValue:F0}";
-            _line.fillAmount   = (float)level / _statDefinition.MaxValue;
+            _statNameText.text = $"{statName}: {value:F0}";
+            _line.fillAmount = (float)level / _statDefinition.MaxUpgradeLevel;
         }
     }
 }

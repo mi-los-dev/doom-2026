@@ -49,7 +49,7 @@ namespace Game.Core
             var currentLevel = (_currentLevels.TryGetValue(statId, out var cl) ? cl : 0)
                              + (_pendingAllocations.TryGetValue(statId, out var pa) ? pa : 0);
 
-            if (currentLevel >= statDefinition.MaxValue) return;
+            if (currentLevel >= statDefinition.MaxUpgradeLevel) return;
 
             _pendingAllocations[statId] = (_pendingAllocations.TryGetValue(statId, out var p) ? p : 0) + 1;
             _displayLevels[statId].Value++;

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Core;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -13,23 +14,32 @@ namespace Game.Services
         [Inject] private readonly ISaveService _saveService;
         [Inject] private readonly StatCalculationService _statCalculationService;
 
+        private readonly CompositeDisposable _disposable = new CompositeDisposable();
+
         public void Initialize()
         {
             var saveData = _saveService.Load();
-            if (saveData == null) return;
 
-            _playerModel.UpgradePoints.Value = saveData.UpgradePoints;
-
-            foreach (var def in _statsTableConfig.StatDefinitions)
+            if (saveData != null)
             {
-                if (!saveData.StatLevels.TryGetValue(def.Id, out var level) || level == 0) continue;
+                _playerModel.UpgradePoints.Value = saveData.UpgradePoints;
 
-                var value = _statCalculationService.CalculateValue(def, level);
-                if (_playerModel.TryGetUpgradableStat(def.Id, out var prop))
-                    prop.Value = value;
+                foreach (var def in _statsTableConfig.StatDefinitions)
+                {
+                    if (!saveData.StatLevels.TryGetValue(def.Id, out var level) || level == 0) continue;
+
+                    var value = _statCalculationService.CalculateValue(def, level);
+                    if (_playerModel.TryGetUpgradableStat(def.Id, out var prop))
+                        prop.Value = value;
+                }
+
+                _playerModel.CurrentHp.Value = _playerModel.MaxHp.Value;
             }
 
-            _playerModel.CurrentHp.Value = _playerModel.MaxHp.Value;
+            _playerModel.UpgradePoints
+                .Skip(1)
+                .Subscribe(_ => SavePoints())
+                .AddTo(_disposable);
         }
 
         public UpgradeSessionModel OpenSession()
@@ -72,6 +82,13 @@ namespace Game.Services
         public void Discard(UpgradeSessionModel session)
         {
             session.Reset();
+        }
+
+        private void SavePoints()
+        {
+            var saveData = _saveService.Load() ?? new PlayerSaveData { StatLevels = new Dictionary<string, int>() };
+            saveData.UpgradePoints = _playerModel.UpgradePoints.Value;
+            _saveService.Save(saveData);
         }
     }
 }

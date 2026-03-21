@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: health
   _localizationKey: Health
-  _startValue: 1
-  _valuePerPoint: 1.5
-  _maxValue: 10
-  _hudDisplay: 1
+  _startValue: 5
+  _valuePerPoint: 1
+  _maxUpgradeLevel: 10

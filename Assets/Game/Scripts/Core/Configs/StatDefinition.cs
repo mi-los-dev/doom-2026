@@ -9,12 +9,12 @@ namespace Game.Core
         public virtual string LocalizationKey => _localizationKey;
         public virtual float StartValue => _startValue;
         public virtual float ValuePerPoint => _valuePerPoint;
-        public virtual int MaxValue => _maxValue;
+        public virtual int MaxUpgradeLevel => _maxUpgradeLevel;
 
         [SerializeField] protected string _id;
         [SerializeField] protected string _localizationKey;
         [SerializeField] protected float _startValue;
         [SerializeField] protected float _valuePerPoint;
-        [SerializeField] protected int _maxValue;
+        [SerializeField] protected int _maxUpgradeLevel;
     }
 }

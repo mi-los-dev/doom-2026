@@ -1,4 +1,6 @@
 using Game.Core;
+using System;
+using UniRx;
 using Zenject;
 
 namespace Game.Services
@@ -7,9 +9,13 @@ namespace Game.Services
     {
         [Inject] private PlayerModel _playerModel;
 
+        private readonly Subject<Unit> _enemyKilled = new Subject<Unit>();
+        public IObservable<Unit> EnemyKilled => _enemyKilled;
+
         public void OnEnemyKilled()
         {
             _playerModel.UpgradePoints.Value++;
+            _enemyKilled.OnNext(Unit.Default);
         }
     }
 }

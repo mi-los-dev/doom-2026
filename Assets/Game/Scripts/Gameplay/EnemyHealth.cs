@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Game.Core;
 using Game.Services;
 using UniRx;
@@ -20,9 +21,9 @@ namespace Game.Gameplay
             Hp.Value = Random.Range(_enemyConfig.MinHp, _enemyConfig.MaxHp + 1);
         }
 
-        public void TakeDamage(float amount, RaycastHit hit)
+        public void TakeDamage(ShotInfotmation shotInfotmation)
         {
-            Hp.Value -= amount;
+            Hp.Value -= shotInfotmation.Damage;
             if (Hp.Value <= 0)
             {
                 _enemyRewardService.OnEnemyKilled();
@@ -30,9 +31,9 @@ namespace Game.Gameplay
             }
             else
             {
-                _takeDamageEffect.transform.position = hit.point;
-                _takeDamageEffect.transform.LookAt(hit.point + hit.normal);
-                _takeDamageEffect.Stop();
+                _takeDamageEffect.transform.SetPositionAndRotation(
+                    shotInfotmation.HitPoint,
+                    Quaternion.LookRotation(-shotInfotmation.HitDirection));
                 _takeDamageEffect.Play();
             }
         }

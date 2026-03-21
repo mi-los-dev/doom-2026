@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6272f06bf68e408a977d70ed12c2044, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  _baseSpeed: 1
+  _baseSpeed: 3
   _baseHp: 1
   _baseDamage: 1
   _startUpgradePoints: 1

@@ -146,8 +146,9 @@ GameObject:
   - component: {fileID: 8744328207425044572}
   - component: {fileID: 4404833372168349226}
   - component: {fileID: 1428628592384281956}
+  - component: {fileID: 6337957581362994508}
   m_Layer: 5
-  m_Name: StatView
+  m_Name: UpgradeStatView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,6 +215,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6337957581362994508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506462239701267113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0196f9ca043fc480a8af67d7cff295a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statNameText: {fileID: 8012472855460637806}
+  _line: {fileID: 8638936294247305486}
+  _plusButton: {fileID: 5743606824980752140}
 --- !u!1 &5241488310687828138
 GameObject:
   m_ObjectHideFlags: 0

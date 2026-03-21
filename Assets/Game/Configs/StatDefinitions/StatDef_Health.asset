@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60626d8140e643eab6a7e6a3a295e25, type: 3}
   m_Name: StatDef_Health
   m_EditorClassIdentifier: 
-  _id: Health
-  _localizationKey: 
+  _id: health
+  _localizationKey: Health
   _startValue: 1
-  _valuePerPoint: 1
+  _valuePerPoint: 1.5
   _maxValue: 10
+  _hudDisplay: 1

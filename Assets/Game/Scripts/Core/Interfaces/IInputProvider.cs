@@ -11,5 +11,7 @@ namespace Game.Core
         IObservable<Unit> ShootInput();
         IObservable<Unit> JumpInput();
         IObservable<Unit> UpgradeUIInput();
+        IObservable<Unit> CloseUIInput();
+        IObservable<bool> FreeCursorInput(); // true — курсор свободен (Shift зажат)
     }
 }

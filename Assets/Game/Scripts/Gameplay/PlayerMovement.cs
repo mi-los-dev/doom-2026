@@ -33,6 +33,14 @@ namespace Game.Gameplay
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
+            _inputProvider.FreeCursorInput()
+                .Subscribe(isFree =>
+                {
+                    Cursor.lockState = isFree ? CursorLockMode.None : CursorLockMode.Locked;
+                    Cursor.visible = isFree;
+                })
+                .AddTo(this);
+
             _inputProvider.MoveInput()
                 .Subscribe(input => _moveInput = input)
                 .AddTo(this);

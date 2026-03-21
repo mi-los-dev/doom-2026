@@ -10,6 +10,7 @@ namespace Game.Infrastructure
         public IObservable<Vector2> LookInput()
         {
             return Observable.EveryUpdate()
+                .Where(_ => !Input.GetKey(KeyCode.LeftShift))
                 .Select(_ => new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")))
                 .Where(v => v != Vector2.zero);
         }
@@ -17,6 +18,7 @@ namespace Game.Infrastructure
         public IObservable<Vector2> MoveInput()
         {
             return Observable.EveryUpdate()
+                .Where(_ => !Input.GetKey(KeyCode.LeftShift))
                 .Select(_ => Vector2.ClampMagnitude(
                     new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")), 1f));
         }
@@ -24,6 +26,7 @@ namespace Game.Infrastructure
         public IObservable<Unit> ShootInput()
         {
             return Observable.EveryUpdate()
+                .Where(_ => !Input.GetKey(KeyCode.LeftShift))
                 .Where(_ => Input.GetButtonDown("Fire1"))
                 .Select(_ => Unit.Default);
         }
@@ -31,6 +34,7 @@ namespace Game.Infrastructure
         public IObservable<Unit> JumpInput()
         {
             return Observable.EveryUpdate()
+                .Where(_ => !Input.GetKey(KeyCode.LeftShift))
                 .Where(_ => Input.GetButtonDown("Jump"))
                 .Select(_ => Unit.Default);
         }
@@ -40,6 +44,20 @@ namespace Game.Infrastructure
             return Observable.EveryUpdate()
                 .Where(_ => Input.GetKeyDown(KeyCode.Tab))
                 .Select(_ => Unit.Default);
+        }
+
+        public IObservable<Unit> CloseUIInput()
+        {
+            return Observable.EveryUpdate()
+                .Where(_ => Input.GetKeyDown(KeyCode.Escape))
+                .Select(_ => Unit.Default);
+        }
+
+        public IObservable<bool> FreeCursorInput()
+        {
+            return Observable.EveryUpdate()
+                .Select(_ => Input.GetKey(KeyCode.LeftShift))
+                .DistinctUntilChanged();
         }
     }
 }

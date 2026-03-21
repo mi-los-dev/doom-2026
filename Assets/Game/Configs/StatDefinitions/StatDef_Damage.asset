@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60626d8140e643eab6a7e6a3a295e25, type: 3}
   m_Name: StatDef_Damage
   m_EditorClassIdentifier: 
-  _id: Damage
-  _localizationKey: 
+  _id: damage
+  _localizationKey: Damage
   _startValue: 1
-  _valuePerPoint: 1
+  _valuePerPoint: 1.5
   _maxValue: 10
+  _hudDisplay: 0

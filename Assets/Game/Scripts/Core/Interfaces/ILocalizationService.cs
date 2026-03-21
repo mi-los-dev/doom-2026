@@ -6,6 +6,6 @@ namespace Game.Core
 {
     public interface ILocalizationService
     {
-
+        string Get(string key);
     }
 }

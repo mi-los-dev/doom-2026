@@ -1,4 +1,3 @@
-using DG.Tweening;
 using Game.Core;
 using Game.Services;
 using UniRx;

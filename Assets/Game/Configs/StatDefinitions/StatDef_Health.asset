@@ -15,5 +15,5 @@ MonoBehaviour:
   _id: health
   _localizationKey: Health
   _startValue: 5
-  _valuePerPoint: 1
+  _valuePerPoint: 0.05
   _maxUpgradeLevel: 10

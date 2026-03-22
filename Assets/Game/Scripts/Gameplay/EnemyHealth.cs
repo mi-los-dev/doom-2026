@@ -11,6 +11,7 @@ namespace Game.Gameplay
         public ReactiveProperty<float> Hp;
 
         [SerializeField] private ParticleSystem _takeDamageEffect;
+        [SerializeField] private ParticleSystem _destroyEffect;
 
         [Inject] EnemyRewardService _enemyRewardService;
         [Inject] EnemyConfig _enemyConfig;
@@ -25,6 +26,10 @@ namespace Game.Gameplay
             Hp.Value -= shotInfotmation.Damage;
             if (Hp.Value <= 0)
             {
+                _destroyEffect.Play();
+                _destroyEffect.transform.SetParent(null);
+                _destroyEffect.transform.position = shotInfotmation.HitPoint;
+                Destroy(_destroyEffect.gameObject, 2f);
                 _enemyRewardService.OnEnemyKilled();
                 Destroy(gameObject);
             }

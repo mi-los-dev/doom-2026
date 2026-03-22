@@ -54,7 +54,7 @@ namespace Game.UI
 
                 var statName = _localizationService.Get(statDefinition.LocalizationKey);
 
-                statProp.Subscribe(val => statView.SetText($"{statName}: {val:F0}")).AddTo(_view);
+                statProp.Subscribe(val => statView.SetText($"{statName}: {val:0.##}")).AddTo(_view);
             }
         }
 

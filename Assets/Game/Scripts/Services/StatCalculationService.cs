@@ -6,7 +6,7 @@ namespace Game.Services
     {
         public float CalculateValue(StatDefinition stat, int level)
         {
-            return stat.StartValue + (stat.ValuePerPoint * level);
+            return stat.StartValue * (1f + stat.ValuePerPoint * level);
         }
     }
 }

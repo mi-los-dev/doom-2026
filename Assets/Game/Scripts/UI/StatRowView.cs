@@ -41,7 +41,7 @@ namespace Game.UI
             var statName = _localizationService.Get(_statDefinition.LocalizationKey);
             var value = _statDefinition.StartValue + _statDefinition.ValuePerPoint * level;
 
-            _statNameText.text = $"{statName}: {value:F0}";
+            _statNameText.text = $"{statName}: {value:0.##}";
             _line.fillAmount = (float)level / _statDefinition.MaxUpgradeLevel;
         }
     }

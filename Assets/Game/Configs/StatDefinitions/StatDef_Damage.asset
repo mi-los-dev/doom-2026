@@ -15,5 +15,5 @@ MonoBehaviour:
   _id: damage
   _localizationKey: Damage
   _startValue: 1
-  _valuePerPoint: 1
+  _valuePerPoint: 0.1
   _maxUpgradeLevel: 10

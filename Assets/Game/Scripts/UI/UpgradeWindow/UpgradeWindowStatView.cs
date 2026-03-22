@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Game.UI
+namespace Game.UI.UpgradeWindow
 {
-    public class StatRowView : MonoBehaviour
+    public class UpgradeWindowStatView : MonoBehaviour
     {
         [SerializeField] private TMP_Text _statNameText;
         [SerializeField] private Image _line;

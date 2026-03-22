@@ -7,10 +7,11 @@ namespace Game.Services
 {
     public class EnemyRewardService
     {
+        public IObservable<Unit> EnemyKilled => _enemyKilled;
+
         [Inject] private PlayerModel _playerModel;
 
         private readonly Subject<Unit> _enemyKilled = new Subject<Unit>();
-        public IObservable<Unit> EnemyKilled => _enemyKilled;
 
         public void OnEnemyKilled()
         {

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.UI.Hud
 {
     public class HudStatView : MonoBehaviour
     {

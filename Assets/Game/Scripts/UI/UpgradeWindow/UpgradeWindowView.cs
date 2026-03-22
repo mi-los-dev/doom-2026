@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.UI
+namespace Game.UI.UpgradeWindow
 {
     public class UpgradeWindowView : MonoBehaviour
     {
@@ -10,12 +10,12 @@ namespace Game.UI
         public Transform RowsContainer => _rowsContainer;
         public Button ApplyButton => _applyButton;
         public Button CloseButton => _closeButton;
-        public StatRowView RowPrefab => _rowPrefab;
+        public UpgradeWindowStatView RowPrefab => _rowPrefab;
 
         [SerializeField] private TMP_Text _pointsText;
         [SerializeField] private Transform _rowsContainer;
         [SerializeField] private Button _applyButton;
         [SerializeField] private Button _closeButton;
-        [SerializeField] private StatRowView _rowPrefab;
+        [SerializeField] private UpgradeWindowStatView _rowPrefab;
     }
 }

@@ -2991,6 +2991,7 @@ GameObject:
   - component: {fileID: 1331574711}
   - component: {fileID: 1331574712}
   - component: {fileID: 1331574714}
+  - component: {fileID: 1331574715}
   - component: {fileID: 1331574713}
   m_Layer: 0
   m_Name: SceneContext
@@ -3029,6 +3030,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1331574714}
+  - {fileID: 1331574715}
   - {fileID: 1331574713}
   _installerPrefabs: []
   _autoRun: 1
@@ -3077,6 +3079,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a6ca9c91905a046d0a0fe7af81145397, type: 2}
   - {fileID: 11400000, guid: 9a4fb090d76364a368a984aeeab7a2e9, type: 2}
   - {fileID: 11400000, guid: 47fc70dba4d52435c94aef401d721ceb, type: 2}
+--- !u!114 &1331574715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331574710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7c7fc92b1212428badd1c600712609f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1355110642
 GameObject:
   m_ObjectHideFlags: 0
@@ -4428,7 +4442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 12/190
+  m_text: 10/10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ac95b2df8e0b4b8bb8b350588ce89c4, type: 2}
   m_sharedMaterial: {fileID: -1185033935625252069, guid: 6ac95b2df8e0b4b8bb8b350588ce89c4,

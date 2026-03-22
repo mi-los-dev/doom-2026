@@ -1,8 +1,9 @@
 using Game.Core;
+using Game.UI.UpgradeWindow;
 using UniRx;
 using Zenject;
 
-namespace Game.UI
+namespace Game.UI.Hud
 {
     public class HudPresenter : IInitializable
     {

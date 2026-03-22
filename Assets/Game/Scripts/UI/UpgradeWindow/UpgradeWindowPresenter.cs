@@ -5,7 +5,7 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace Game.UI
+namespace Game.UI.UpgradeWindow
 {
     public class UpgradeWindowPresenter : IInitializable
     {
@@ -50,7 +50,7 @@ namespace Game.UI
 
             foreach (var statDefinition in _statsTableConfig.StatDefinitions)
             {
-                var row = _instantiator.InstantiatePrefabForComponent<StatRowView>(
+                var row = _instantiator.InstantiatePrefabForComponent<UpgradeWindowStatView>(
                     _view.RowPrefab.gameObject,
                     _view.RowsContainer);
 

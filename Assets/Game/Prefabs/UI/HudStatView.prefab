@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3356352540606392794}
   - component: {fileID: 1703625873307412494}
-  - component: {fileID: 3421071298379032116}
   - component: {fileID: 6327316938132390036}
+  - component: {fileID: 3421071298379032116}
   m_Layer: 5
   m_Name: HudStatView
   m_TagString: Untagged
@@ -46,6 +46,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228275651857186878}
   m_CullTransparentMesh: 1
+--- !u!114 &6327316938132390036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228275651857186878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ffbeec6d01ad48e3b4d2c39ab3e3bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 3421071298379032116}
 --- !u!114 &3421071298379032116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,16 +149,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6327316938132390036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228275651857186878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ffbeec6d01ad48e3b4d2c39ab3e3bd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _text: {fileID: 3421071298379032116}

@@ -1,4 +1,5 @@
 using Game.Core;
+using Game.Services;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Game.UI.UpgradeWindow
         [SerializeField] private Button _plusButton;
 
         [Inject] private readonly ILocalizationService _localizationService;
+        [Inject] private readonly StatCalculationService _statCalculationService;
 
         private StatDefinition _statDefinition;
 
@@ -39,7 +41,7 @@ namespace Game.UI.UpgradeWindow
         private void RefreshView(int level)
         {
             var statName = _localizationService.Get(_statDefinition.LocalizationKey);
-            var value = _statDefinition.StartValue + _statDefinition.ValuePerPoint * level;
+            var value = _statCalculationService.CalculateValue(_statDefinition, level);
 
             _statNameText.text = $"{statName}: {value:0.##}";
             _line.fillAmount = (float)level / _statDefinition.MaxUpgradeLevel;

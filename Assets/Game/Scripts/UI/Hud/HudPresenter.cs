@@ -1,3 +1,4 @@
+using System;
 using Game.Core;
 using Game.UI.UpgradeWindow;
 using UniRx;
@@ -5,15 +6,17 @@ using Zenject;
 
 namespace Game.UI.Hud
 {
-    public class HudPresenter : IInitializable
+    public class HudPresenter : IInitializable, IDisposable
     {
-        [Inject] private readonly HudView _view;
+        [Inject] private readonly IHudView _view;
         [Inject] private readonly PlayerModel _playerModel;
         [Inject] private readonly StatsTableConfig _statsTableConfig;
         [Inject] private readonly ILocalizationService _localizationService;
         [Inject] private readonly UpgradeWindowPresenter _upgradeWindowPresenter;
         [Inject] private readonly IInstantiator _instantiator;
         [Inject] private readonly IInputProvider _inputProvider;
+
+        private readonly CompositeDisposable _disposables = new CompositeDisposable();
 
         public void Initialize()
         {
@@ -24,23 +27,20 @@ namespace Game.UI.Hud
             BindWindowVisibility();
         }
 
+        public void Dispose() => _disposables.Dispose();
+
         private void BindHp()
         {
             _playerModel.CurrentHp
-                .Subscribe(hp =>
-                {
-                    _view.HpText.text = $"{(int)hp} / {(int)_playerModel.MaxHp.Value}";
-                    _view.HpLine.fillAmount = hp / _playerModel.MaxHp.Value;
-                })
-                .AddTo(_view);
+                .Subscribe(hp => _view.SetHp(hp, _playerModel.MaxHp.Value))
+                .AddTo(_disposables);
         }
 
         private void BindPoints()
         {
             _playerModel.UpgradePoints
-               .Subscribe(points => _view.PointsText.text
-                   = $"{_localizationService.Get("Points")}: {points}")
-               .AddTo(_view);
+                .Subscribe(points => _view.SetPointsText($"{_localizationService.Get("Points")}: {points}"))
+                .AddTo(_disposables);
         }
 
         private void BindStats()
@@ -54,28 +54,26 @@ namespace Game.UI.Hud
                     _view.StatsContainer);
 
                 var statName = _localizationService.Get(statDefinition.LocalizationKey);
-
-                statProp.Subscribe(val => statView.SetText($"{statName}: {val:0.##}")).AddTo(_view);
+                statProp.Subscribe(val => statView.SetText($"{statName}: {val:0.##}")).AddTo(_disposables);
             }
         }
 
         private void BindUpgradeButton()
         {
-            _view.UpgradeButton
-                .OnClickAsObservable()
+            _view.OnUpgradeClicked
                 .Subscribe(_ => _upgradeWindowPresenter.Open())
-                .AddTo(_view);
+                .AddTo(_disposables);
 
             _inputProvider.UpgradeUIInput()
                 .Subscribe(_ => _upgradeWindowPresenter.Open())
-                .AddTo(_view);
+                .AddTo(_disposables);
         }
 
         private void BindWindowVisibility()
         {
             _upgradeWindowPresenter.IsOpen
-                .Subscribe(isOpen => _view.gameObject.SetActive(!isOpen))
-                .AddTo(_view);
+                .Subscribe(isOpen => _view.SetActive(!isOpen))
+                .AddTo(_disposables);
         }
     }
 }

@@ -7,11 +7,11 @@ using Zenject;
 
 namespace Game.UI.UpgradeWindow
 {
-    public class UpgradeWindowPresenter : IInitializable
+    public class UpgradeWindowPresenter : IInitializable, IDisposable
     {
         public IObservable<bool> IsOpen => _isOpen;
 
-        [Inject] private readonly UpgradeWindowView _view;
+        [Inject] private readonly IUpgradeWindowView _view;
         [Inject] private readonly UpgradeService _upgradeService;
         [Inject] private readonly StatsTableConfig _statsTableConfig;
         [Inject] private readonly IInstantiator _instantiator;
@@ -20,29 +20,29 @@ namespace Game.UI.UpgradeWindow
 
         private UpgradeSessionModel _session;
         private readonly Subject<bool> _isOpen = new Subject<bool>();
+        private readonly CompositeDisposable _disposables = new CompositeDisposable();
+        private CompositeDisposable _sessionDisposables;
 
         public void Initialize()
         {
-            _view.gameObject.SetActive(false);
+            _view.SetActive(false);
 
-            _view.ApplyButton
-                .OnClickAsObservable()
-                .Subscribe(_ => Apply())
-                .AddTo(_view);
-
-            _view.CloseButton
-                .OnClickAsObservable()
-                .Subscribe(_ => Close())
-                .AddTo(_view);
+            _view.OnApplyClicked.Subscribe(_ => Apply()).AddTo(_disposables);
+            _view.OnCloseClicked.Subscribe(_ => Close()).AddTo(_disposables);
 
             _inputProvider.CloseUIInput()
-                .Where(_ => _view.gameObject.activeSelf)
+                .Where(_ => _view.IsActive)
                 .Subscribe(_ => Close())
-                .AddTo(_view);
+                .AddTo(_disposables);
         }
+
+        public void Dispose() => _disposables.Dispose();
 
         public void Open()
         {
+            _sessionDisposables?.Dispose();
+            _sessionDisposables = new CompositeDisposable();
+
             _session = _upgradeService.OpenSession();
 
             foreach (Transform child in _view.RowsContainer)
@@ -58,15 +58,15 @@ namespace Game.UI.UpgradeWindow
             }
 
             _session.RemainingPoints
-                .Subscribe(points => _view.PointsText.text = $"{_localizationService.Get("Points")}: {points}")
-                .AddTo(_view);
+                .Subscribe(points => _view.SetPointsText($"{_localizationService.Get("Points")}: {points}"))
+                .AddTo(_sessionDisposables);
 
             _session.HasPendingChanges
-                .Subscribe(hasChanges => _view.ApplyButton.interactable = hasChanges)
-                .AddTo(_view);
+                .Subscribe(hasChanges => _view.SetApplyButtonInteractable(hasChanges))
+                .AddTo(_sessionDisposables);
 
-            _view.ApplyButton.interactable = false;
-            _view.gameObject.SetActive(true);
+            _view.SetApplyButtonInteractable(false);
+            _view.SetActive(true);
             _isOpen.OnNext(true);
         }
 
@@ -84,7 +84,8 @@ namespace Game.UI.UpgradeWindow
 
         private void CloseView()
         {
-            _view.gameObject.SetActive(false);
+            _sessionDisposables?.Dispose();
+            _view.SetActive(false);
             _isOpen.OnNext(false);
         }
     }

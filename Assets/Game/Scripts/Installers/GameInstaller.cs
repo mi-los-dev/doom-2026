@@ -52,8 +52,8 @@ namespace Game.Installers
 
         private void BindUI()
         {
-            Container.Bind<HudView>().FromComponentInHierarchy().AsSingle();
-            Container.Bind<UpgradeWindowView>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<IHudView>().To<HudView>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<IUpgradeWindowView>().To<UpgradeWindowView>().FromComponentInHierarchy().AsSingle();
 
             Container.BindInterfacesAndSelfTo<HudPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<UpgradeWindowPresenter>().AsSingle();

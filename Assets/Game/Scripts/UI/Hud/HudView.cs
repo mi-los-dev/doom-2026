@@ -21,7 +21,7 @@ namespace Game.UI.Hud
 
         public void SetHp(float current, float max)
         {
-            _hpText.text = $"{(int)current} / {(int)max}";
+            _hpText.text = $"{current:0.##} / {max:0.##}";
             _hpLine.fillAmount = current / max;
         }
 

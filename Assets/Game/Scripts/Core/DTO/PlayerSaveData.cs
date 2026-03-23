@@ -9,5 +9,6 @@ namespace Game.Core
     {
         public Dictionary<string, int> StatLevels;
         public int UpgradePoints;
+        public float CurrentHp;
     }
 }

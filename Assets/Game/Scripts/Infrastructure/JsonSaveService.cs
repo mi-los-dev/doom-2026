@@ -15,6 +15,7 @@ namespace Game.Infrastructure
             public string[] StatIds;
             public int[] StatLevels;
             public int UpgradePoints;
+            public float CurrentHp;
         }
 
         public PlayerSaveData Load()
@@ -36,7 +37,8 @@ namespace Game.Infrastructure
             return new PlayerSaveData
             {
                 StatLevels = statLevels,
-                UpgradePoints = raw.UpgradePoints
+                UpgradePoints = raw.UpgradePoints,
+                CurrentHp = raw.CurrentHp
             };
         }
 
@@ -56,7 +58,8 @@ namespace Game.Infrastructure
             {
                 StatIds = ids,
                 StatLevels = levels,
-                UpgradePoints = data.UpgradePoints
+                UpgradePoints = data.UpgradePoints,
+                CurrentHp = data.CurrentHp
             };
 
             PlayerPrefs.SetString(SaveKey, JsonUtility.ToJson(raw));

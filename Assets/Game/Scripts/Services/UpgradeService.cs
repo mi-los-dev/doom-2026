@@ -33,12 +33,19 @@ namespace Game.Services
                         prop.Value = value;
                 }
 
-                _playerModel.CurrentHp.Value = _playerModel.MaxHp.Value;
+                _playerModel.CurrentHp.Value = saveData.CurrentHp > 0
+                    ? Mathf.Min(saveData.CurrentHp, _playerModel.MaxHp.Value)
+                    : _playerModel.MaxHp.Value;
             }
 
             _playerModel.UpgradePoints
                 .Skip(1)
-                .Subscribe(_ => SavePoints())
+                .Subscribe(_ => Save())
+                .AddTo(_disposable);
+
+            _playerModel.CurrentHp
+                .Skip(1)
+                .Subscribe(_ => Save())
                 .AddTo(_disposable);
         }
 
@@ -75,6 +82,7 @@ namespace Game.Services
 
             _playerModel.UpgradePoints.Value -= session.SpentPoints;
             saveData.UpgradePoints = _playerModel.UpgradePoints.Value;
+            saveData.CurrentHp = _playerModel.CurrentHp.Value;
 
             _saveService.Save(saveData);
         }
@@ -84,10 +92,11 @@ namespace Game.Services
             session.Reset();
         }
 
-        private void SavePoints()
+        private void Save()
         {
             var saveData = _saveService.Load() ?? new PlayerSaveData { StatLevels = new Dictionary<string, int>() };
             saveData.UpgradePoints = _playerModel.UpgradePoints.Value;
+            saveData.CurrentHp = _playerModel.CurrentHp.Value;
             _saveService.Save(saveData);
         }
     }

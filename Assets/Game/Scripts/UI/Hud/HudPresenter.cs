@@ -31,8 +31,8 @@ namespace Game.UI.Hud
 
         private void BindHp()
         {
-            _playerModel.CurrentHp
-                .Subscribe(hp => _view.SetHp(hp, _playerModel.MaxHp.Value))
+            Observable.CombineLatest(_playerModel.CurrentHp, _playerModel.MaxHp, (cur, max) => (cur, max))
+                .Subscribe(v => _view.SetHp(v.cur, v.max))
                 .AddTo(_disposables);
         }
 

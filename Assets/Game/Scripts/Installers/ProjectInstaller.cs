@@ -8,6 +8,7 @@ namespace Game.Installers
     {
         public override void InstallBindings()
         {
+            Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
             Container.Bind<IInputProvider>().To<PCInputProvider>().AsSingle();
             Container.Bind<ISaveService>().To<JsonSaveService>().AsSingle();
             Container.Bind<ILocalizationService>().To<StubLocalizationService>().AsSingle();

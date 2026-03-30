@@ -23,6 +23,7 @@ namespace Game.Installers
         private void BindPlayer()
         {
             Container.Bind<PlayerMovement>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<IPlayerPositionProvider>().To<PlayerMovement>().FromResolve();
             Container.Bind<PlayerHealth>().FromComponentInHierarchy().AsSingle();
             Container.Bind<PlayerShooter>().FromComponentInHierarchy().AsSingle();
         }

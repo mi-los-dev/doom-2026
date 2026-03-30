@@ -6,7 +6,7 @@ using Zenject;
 namespace Game.Gameplay
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, IPlayerPositionProvider
     {
         [SerializeField] private Transform _cameraTransform;
         [SerializeField] private float _mouseSensitivity = 2f;
@@ -17,6 +17,8 @@ namespace Game.Gameplay
         [SerializeField] private Transform _groundCheck;
         [SerializeField] private float _groundCheckRadius = 0.2f;
         [SerializeField] private LayerMask _groundLayer;
+
+        public Vector3 Position => transform.position;
 
         [Inject] private readonly IInputProvider _inputProvider;
         [Inject] private readonly PlayerModel _playerModel;

@@ -8,11 +8,11 @@ namespace Game.Gameplay
     {
         public class Factory : PlaceholderFactory<EnemyMovement> { }
 
-        [Inject] private readonly PlayerMovement _playerMovement;
+        [Inject] private readonly IPlayerPositionProvider _playerPositionProvider;
 
         private void Update()
         {
-            var direction = _playerMovement.transform.position - transform.position;
+            var direction = _playerPositionProvider.Position - transform.position;
             direction.y = 0f;
 
             if (direction != Vector3.zero)

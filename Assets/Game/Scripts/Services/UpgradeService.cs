@@ -7,12 +7,12 @@ using Zenject;
 
 namespace Game.Services
 {
-    public class UpgradeService : IInitializable
+    public class UpgradeService : IInitializable, IUpgradeService
     {
         [Inject] private readonly PlayerModel _playerModel;
         [Inject] private readonly StatsTableConfig _statsTableConfig;
         [Inject] private readonly ISaveService _saveService;
-        [Inject] private readonly StatCalculationService _statCalculationService;
+        [Inject] private readonly IStatCalculationService _statCalculationService;
 
         private readonly CompositeDisposable _disposable = new CompositeDisposable();
 

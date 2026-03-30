@@ -13,7 +13,7 @@ namespace Game.Gameplay
         [SerializeField] private ParticleSystem _takeDamageEffect;
         [SerializeField] private ParticleSystem _destroyEffect;
 
-        [Inject] EnemyRewardService _enemyRewardService;
+        [Inject] IEnemyRewardService _enemyRewardService;
         [Inject] EnemyConfig _enemyConfig;
 
         private void Awake()

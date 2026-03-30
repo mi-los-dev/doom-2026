@@ -1,6 +1,5 @@
 using System;
 using Game.Core;
-using Game.Services;
 using Game.UI;
 using UniRx;
 using UnityEngine;
@@ -12,7 +11,7 @@ namespace Game.UI.UpgradeWindow
     {
         [Inject] private readonly IUpgradeWindowView _view;
         [Inject] private readonly IWindowService _windowService;
-        [Inject] private readonly UpgradeService _upgradeService;
+        [Inject] private readonly IUpgradeService _upgradeService;
         [Inject] private readonly StatsTableConfig _statsTableConfig;
         [Inject] private readonly IInstantiator _instantiator;
         [Inject] private readonly ILocalizationService _localizationService;

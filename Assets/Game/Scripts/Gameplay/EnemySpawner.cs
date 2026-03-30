@@ -1,4 +1,4 @@
-using Game.Services;
+using Game.Core;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -14,7 +14,7 @@ namespace Game.Gameplay
         [SerializeField] private int _initialEnemyCount = 5;
 
         [Inject] private EnemyMovement.Factory _enemyFactory;
-        [Inject] private readonly EnemyRewardService _enemyRewardService;
+        [Inject] private readonly IEnemyRewardService _enemyRewardService;
 
         private void Start()
         {

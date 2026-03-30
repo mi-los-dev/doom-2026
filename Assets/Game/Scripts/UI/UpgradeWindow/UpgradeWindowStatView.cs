@@ -15,7 +15,7 @@ namespace Game.UI.UpgradeWindow
         [SerializeField] private Button _plusButton;
 
         [Inject] private readonly ILocalizationService _localizationService;
-        [Inject] private readonly StatCalculationService _statCalculationService;
+        [Inject] private readonly IStatCalculationService _statCalculationService;
 
         private StatDefinition _statDefinition;
 

@@ -40,9 +40,9 @@ namespace Game.Installers
 
         private void BindServices()
         {
-            Container.Bind<StatCalculationService>().AsSingle();
+            Container.Bind<IStatCalculationService>().To<StatCalculationService>().AsSingle();
             Container.BindInterfacesAndSelfTo<UpgradeService>().AsSingle();
-            Container.Bind<EnemyRewardService>().AsSingle();
+            Container.Bind<IEnemyRewardService>().To<EnemyRewardService>().AsSingle();
         }
     }
 }

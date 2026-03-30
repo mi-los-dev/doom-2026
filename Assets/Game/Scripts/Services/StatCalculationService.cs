@@ -2,7 +2,7 @@ using Game.Core;
 
 namespace Game.Services
 {
-    public class StatCalculationService
+    public class StatCalculationService : IStatCalculationService
     {
         public float CalculateValue(StatDefinition stat, int level)
         {

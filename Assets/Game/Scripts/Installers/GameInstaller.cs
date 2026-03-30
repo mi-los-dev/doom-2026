@@ -18,9 +18,14 @@ namespace Game.Installers
 
         private void BindConfigs()
         {
+            // From SO:
             Container.Bind<IConfigProvider>()
                 .FromMethod(_ => new LocalSOConfigProvider(_configs))
                 .AsSingle();
+            // From JSON:
+            // Container.Bind<IConfigProvider>()
+            //     .To<JsonConfigProvider>()
+            //     .AsSingle();
 
             Container.Bind<PlayerConfig>()
                 .FromMethod(ctx => ctx.Container.Resolve<IConfigProvider>().Get<PlayerConfig>())

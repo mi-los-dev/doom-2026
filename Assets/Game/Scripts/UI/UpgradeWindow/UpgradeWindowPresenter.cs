@@ -1,17 +1,17 @@
 using System;
 using Game.Core;
 using Game.Services;
+using Game.UI;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
 namespace Game.UI.UpgradeWindow
 {
-    public class UpgradeWindowPresenter : IInitializable, IDisposable
+    public class UpgradeWindowPresenter : IInitializable, IDisposable, IUpgradeWindow
     {
-        public IObservable<bool> IsOpen => _isOpen;
-
         [Inject] private readonly IUpgradeWindowView _view;
+        [Inject] private readonly IWindowService _windowService;
         [Inject] private readonly UpgradeService _upgradeService;
         [Inject] private readonly StatsTableConfig _statsTableConfig;
         [Inject] private readonly IInstantiator _instantiator;
@@ -19,13 +19,17 @@ namespace Game.UI.UpgradeWindow
         [Inject] private readonly IInputProvider _inputProvider;
 
         private UpgradeSessionModel _session;
-        private readonly Subject<bool> _isOpen = new Subject<bool>();
         private readonly CompositeDisposable _disposables = new CompositeDisposable();
         private CompositeDisposable _sessionDisposables;
 
         public void Initialize()
         {
             _view.SetActive(false);
+
+            _windowService.WindowOpened
+                .Where(t => t == typeof(IUpgradeWindow))
+                .Subscribe(_ => OpenView())
+                .AddTo(_disposables);
 
             _view.OnApplyClicked.Subscribe(_ => Apply()).AddTo(_disposables);
             _view.OnCloseClicked.Subscribe(_ => Close()).AddTo(_disposables);
@@ -38,7 +42,7 @@ namespace Game.UI.UpgradeWindow
 
         public void Dispose() => _disposables.Dispose();
 
-        public void Open()
+        private void OpenView()
         {
             _sessionDisposables?.Dispose();
             _sessionDisposables = new CompositeDisposable();
@@ -67,7 +71,6 @@ namespace Game.UI.UpgradeWindow
 
             _view.SetApplyButtonInteractable(false);
             _view.SetActive(true);
-            _isOpen.OnNext(true);
         }
 
         private void Apply()
@@ -86,7 +89,7 @@ namespace Game.UI.UpgradeWindow
         {
             _sessionDisposables?.Dispose();
             _view.SetActive(false);
-            _isOpen.OnNext(false);
+            _windowService.Close<IUpgradeWindow>();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using Game.Core;
+using Game.UI;
 using Game.UI.UpgradeWindow;
 using UniRx;
 using Zenject;
@@ -12,7 +13,7 @@ namespace Game.UI.Hud
         [Inject] private readonly PlayerModel _playerModel;
         [Inject] private readonly StatsTableConfig _statsTableConfig;
         [Inject] private readonly ILocalizationService _localizationService;
-        [Inject] private readonly UpgradeWindowPresenter _upgradeWindowPresenter;
+        [Inject] private readonly IWindowService _windowService;
         [Inject] private readonly IInstantiator _instantiator;
         [Inject] private readonly IInputProvider _inputProvider;
 
@@ -61,18 +62,18 @@ namespace Game.UI.Hud
         private void BindUpgradeButton()
         {
             _view.OnUpgradeClicked
-                .Subscribe(_ => _upgradeWindowPresenter.Open())
+                .Subscribe(_ => _windowService.Open<IUpgradeWindow>())
                 .AddTo(_disposables);
 
             _inputProvider.UpgradeUIInput()
-                .Subscribe(_ => _upgradeWindowPresenter.Open())
+                .Subscribe(_ => _windowService.Open<IUpgradeWindow>())
                 .AddTo(_disposables);
         }
 
         private void BindWindowVisibility()
         {
-            _upgradeWindowPresenter.IsOpen
-                .Subscribe(isOpen => _view.SetActive(!isOpen))
+            _windowService.AnyWindowOpen
+                .Subscribe(anyOpen => _view.SetActive(!anyOpen))
                 .AddTo(_disposables);
         }
     }
